@@ -1,0 +1,188 @@
+{
+    "start": "Selma Lagerlöfs torg",
+    "end": "Sandkullsvägen",
+    "timetable_start": {
+        "6": [
+            "03",
+            "33"
+        ],
+        "7": [
+            "03",
+            "33"
+        ],
+        "8": [
+            "03",
+            "33"
+        ],
+        "14": [
+            "03",
+            "33"
+        ],
+        "15": [
+            "03",
+            "33"
+        ],
+        "16": [
+            "03"
+        ]
+    },
+    "timetable_end": {
+        "6": [
+            "11",
+            "41"
+        ],
+        "7": [
+            "11",
+            "41"
+        ],
+        "8": [
+            "11",
+            "41"
+        ],
+        "14": [
+            "11",
+            "41"
+        ],
+        "15": [
+            "11",
+            "41"
+        ],
+        "16": [
+            "11"
+        ]
+    },
+    "stop_offsets": {
+        "Selma Lagerlöfs torg": [
+            0,
+            60
+        ],
+        "Halmgatan östra": [
+            2,
+            57
+        ],
+        "Halmgatan västra": [
+            4,
+            56
+        ],
+        "Parkuddsgatan": [
+            5,
+            54
+        ],
+        "Laghamragatan": [
+            7,
+            52
+        ],
+        "Nyhemsgatan": [
+            8,
+            51
+        ],
+        "Stensötevägen": [
+            10,
+            49
+        ],
+        "Enhemsgatan": [
+            11,
+            48
+        ],
+        "Skogsängsvägen": [
+            13,
+            47
+        ],
+        "Långhagsgatan": [
+            14,
+            45
+        ],
+        "Skogsdungen östra": [
+            17,
+            43
+        ],
+        "Skogsdungen västra": [
+            18,
+            41
+        ],
+        "Sankt Jörgens Allé östra": [
+            21,
+            38
+        ],
+        "Sankt Jörgens Allé västra": [
+            22,
+            37
+        ],
+        "Innovitaskolan Östra": [
+            24,
+            35
+        ],
+        "Innovitaskolan": [
+            26,
+            34
+        ],
+        "Lillhagens sandlycka 5": [
+            35,
+            24
+        ],
+        "Lillhagens sandlycka 9": [
+            36,
+            23
+        ],
+        "Lillhagens sandlycka 13": [
+            37,
+            22
+        ],
+        "Hökällans väg": [
+            40,
+            19
+        ],
+        "Lillhagsvinkeln": [
+            43,
+            16
+        ],
+        "Skogome äldreboende": [
+            45,
+            14
+        ],
+        "Lillhagsparken södra": [
+            46,
+            13
+        ],
+        "Lillhagsparken norra": [
+            48,
+            11
+        ],
+        "Sandbanksvägen södra": [
+            50,
+            9
+        ],
+        "Sandbanksvägen 90": [
+            51,
+            8
+        ],
+        "Sandbanksvägen norra": [
+            52,
+            7
+        ],
+        "Sandrevelsvägen 117": [
+            54,
+            6
+        ],
+        "Sandlidsvägen södra": [
+            55,
+            5
+        ],
+        "Sandlidsvägen norra": [
+            56,
+            4
+        ],
+        "Skogomeskolan": [
+            57,
+            3
+        ],
+        "Sandjordsvägen": [
+            0,
+            1
+        ],
+        "Sandkullsvägen": [
+            60,
+            0
+        ]
+    }
+}
