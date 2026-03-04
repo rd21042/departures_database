@@ -1,0 +1,170 @@
+{
+    "start": "Tuve ishall",
+    "end": "Sandkullsvägen",
+    "timetable_start": {
+        "6": [
+            "24",
+            "54"
+        ],
+        "7": [
+            "24",
+            "54"
+        ],
+        "8": [
+            "24",
+            "54"
+        ],
+        "14": [
+            "24",
+            "54"
+        ],
+        "15": [
+            "24",
+            "54"
+        ],
+        "16": [
+            "24"
+        ]
+    },
+    "timetable_end": {
+        "5": [
+            "30"
+        ],
+        "6": [
+            "00",
+            "30"
+        ],
+        "7": [
+            "00",
+            "30"
+        ],
+        "8": [
+            "00",
+            "30"
+        ],
+        "13": [
+            "30"
+        ],
+        "14": [
+            "00",
+            "30"
+        ],
+        "15": [
+            "00",
+            "30"
+        ],
+        "16": [
+            "00"
+        ]
+    },
+    "stop_offsets": {
+        "Tuve ishall": [
+            0,
+            0
+        ],
+        "Tuve motionscenter": [
+            1,
+            0
+        ],
+        "Hinnebäcksgatan västra": [
+            3,
+            0
+        ],
+        "Hinnebäcksgatan": [
+            4,
+            0
+        ],
+        "Hinnebäcksgatan östra": [
+            5,
+            0
+        ],
+        "Hinnebäcksskolan": [
+            6,
+            58
+        ],
+        "Grinnekullegatans lekplats": [
+            7,
+            56
+        ],
+        "Brunnehagen 48": [
+            11,
+            52
+        ],
+        "Brunnehagen centrum": [
+            13,
+            51
+        ],
+        "Brunnehagen 58": [
+            14,
+            50
+        ],
+        "Gunnestorps bygata västra": [
+            16,
+            47
+        ],
+        "Gunnestorps bygata östra": [
+            17,
+            46
+        ],
+        "Silverfyndsgatan": [
+            19,
+            44
+        ],
+        "Hagelidsvägen": [
+            20,
+            43
+        ],
+        "Håkansdal norra": [
+            22,
+            42
+        ],
+        "Innovitaskolan": [
+            36,
+            28
+        ],
+        "Lillhagens Sandlycka västra": [
+            44,
+            19
+        ],
+        "Mulitkult": [
+            49,
+            14
+        ],
+        "Sandrevelsvägen 15": [
+            54,
+            10
+        ],
+        "Sandrevelsvägens Lekplats": [
+            55,
+            8
+        ],
+        "Sandrevelsvägen 79": [
+            56,
+            7
+        ],
+        "Sandrevelsvägen 117": [
+            58,
+            6
+        ],
+        "Sandlidsvägen Södra": [
+            59,
+            5
+        ],
+        "Sandlidsvägen Norra": [
+            60,
+            4
+        ],
+        "Skogomeskolan": [
+            61,
+            3
+        ],
+        "Sandjordsvägen": [
+            0,
+            1
+        ],
+        "Sandkullsvägen": [
+            64,
+            0
+        ]
+    }
+}
