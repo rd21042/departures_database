@@ -1,6 +1,6 @@
 {
-    "start": "Tuve ishall",
-    "end": "Sandkullsvägen",
+    "start": "Tuve Ishall",
+    "end": "Skogome",
     "timetable_start": {
         "6": [
             "24",
@@ -28,33 +28,33 @@
     },
     "timetable_end": {
         "5": [
-            "30"
+            "32"
         ],
         "6": [
-            "00",
-            "30"
+            "02",
+            "32"
         ],
         "7": [
-            "00",
-            "30"
+            "02",
+            "32"
         ],
         "8": [
-            "00",
-            "30"
+            "02",
+            "32"
         ],
         "13": [
-            "30"
+            "27"
         ],
         "14": [
-            "00",
-            "30"
+            "02",
+            "32"
         ],
         "15": [
-            "00",
-            "30"
+            "02",
+            "32"
         ],
         "16": [
-            "00"
+            "02"
         ]
     },
     "stop_offsets": {
@@ -68,15 +68,15 @@
         ],
         "Hinnebäcksgatan västra": [
             3,
-            0
+            61
         ],
         "Hinnebäcksgatan": [
             4,
-            0
+            60
         ],
         "Hinnebäcksgatan östra": [
             5,
-            0
+            59
         ],
         "Hinnebäcksskolan": [
             6,

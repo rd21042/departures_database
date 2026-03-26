@@ -1,29 +1,28 @@
 {
-    "start": "Selma Lagerlöfs torg",
-    "end": "Sandkullsvägen",
+    "start": "Selma Lagerlofs Torg",
+    "end": "Skogome",
     "timetable_start": {
         "6": [
-            "03",
-            "33"
+            "04",
+            "34"
         ],
         "7": [
-            "03",
-            "33"
+            "04",
+            "34"
         ],
         "8": [
-            "03",
-            "33"
+            "04"
         ],
         "14": [
             "03",
             "33"
         ],
         "15": [
-            "03",
-            "33"
+            "04",
+            "34"
         ],
         "16": [
-            "03"
+            "04"
         ]
     },
     "timetable_end": {
