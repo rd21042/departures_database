@@ -23,12 +23,12 @@ while True:
 
         if line:
             buffer.append(line)
-            buffer = buffer[-4:] # Keep last 4 lines (OLED height limit)
+            buffer = buffer[-6:] # Keep last 6 lines (OLED height limit)
 
             oled.fill(0)
 
             for i, row in enumerate(buffer):
-                oled.text(row[:16], 0, i * 10)  # limit width to 16 chars
+                oled.text(row, 0, i * 10)
 
             oled.show()
 
