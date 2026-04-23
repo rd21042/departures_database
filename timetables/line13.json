@@ -60,11 +60,11 @@
     "stop_offsets": {
         "Tuve ishall": [
             0,
-            0
+            64
         ],
         "Tuve motionscenter": [
             1,
-            0
+            62
         ],
         "Hinnebäcksgatan västra": [
             3,
@@ -159,7 +159,7 @@
             3
         ],
         "Sandjordsvägen": [
-            0,
+            "*",
             1
         ],
         "Sandkullsvägen": [

@@ -11,25 +11,22 @@ oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 poll = uselect.poll()
 poll.register(sys.stdin, uselect.POLLIN)
 
-buffer = []
-
 oled.fill(0)
 oled.text("Ready", 0, 0)
 oled.show()
 
+buffer = []
+
 while True:
     if poll.poll(10):
         line = sys.stdin.readline().strip()
+        buffer.append(line)
 
-        if line:
-            buffer.append(line)
-            buffer = buffer[-6:] # Keep last 6 lines (OLED height limit)
-
+        if len(buffer) == 8:
             oled.fill(0)
-
-            for i, row in enumerate(buffer):
-                oled.text(row, 0, i * 10)
-
+            for i, line in enumerate(buffer):
+                oled.text(line, 0, i * 8)
             oled.show()
+            buffer = []
 
-    sleep(50 / 1000) # 50 ms delay to prevent overloading Pico
+    sleep(20 / 1000) # 20 ms delay to prevent overloading Pico
