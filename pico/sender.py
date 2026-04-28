@@ -39,6 +39,9 @@ def get_stop():
 
 # Returns departures given a timetable, the stops offset and the current time
 def get_departures(timetable, distance_from_endpoint, hour, minute):
+    if not isinstance(distance_from_endpoint, int):
+        return
+    
     start_hour_shift = distance_from_endpoint // 60
     if distance_from_endpoint % 60 != 0:
         start_hour_shift += 1
@@ -54,8 +57,8 @@ def get_departures(timetable, distance_from_endpoint, hour, minute):
         for dep_time in departures:
             tot_minutes = dep_time + distance_from_endpoint
             dep_minute = tot_minutes % 60
-            hour_offset += tot_minutes // 60
-            time_to_dep = (dep_minute - minute) + hour_offset * 60
+            correct_hour_offset = hour_offset + (tot_minutes // 60)
+            time_to_dep = (dep_minute - minute) + correct_hour_offset * 60
             
             if 0 <= time_to_dep < 100: # Only consider departures within the next 99 minutes
                 deps.append(time_to_dep)
@@ -91,15 +94,19 @@ def update_screen(stop):
         destination = data.get('end', 'N/A')
         timetable = data.get("timetable_start", {})
 
-        text = f"{line} {destination} " + get_departures(timetable, distance_from_start, hour, minute)
-        deps = wrap(text, width=16)
-        message.extend(deps[:2])
+        if stop == destination:
+            continue
+
+        deps = get_departures(timetable, distance_from_start, hour, minute)
+        if deps:
+            text = f"{line} {destination} " + deps
+            deps = wrap(text, width=16)
+            message.extend(deps[:2])
+        else:
+            message = ["No departures"]
 
     # Ensure that we are sending exactly 8 lines, which fills the entirety of the OLED
-    if message:
-        message = (message + [""] * 8)[:8]
-    else:
-        message = (["No departures"] + [""] * 8)[:8]
+    message = (message + [""] * 8)[:8]
     
     try:
         with serial.Serial(port, baudrate, timeout=1) as ser:
