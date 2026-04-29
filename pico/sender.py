@@ -17,7 +17,7 @@ def import_timetable(line):
         return {}
 
 def get_stop():
-    lines = [1, 2, 3, 4, 12]
+    lines = [1, 20, 21, 3, 4, 12]
     stop_lookup = {}
 
     # Collect all stops across all lines
@@ -76,7 +76,7 @@ def update_screen(stop):
     minute = now.minute
 
     message = [f"{stop.capitalize()[:10]} {hour}:{minute:02}"]
-    lines = [1, 2, 3, 4, 12]
+    lines = [1, 20, 21, 3, 4, 12]
 
     for line in lines:
         data = import_timetable(line)
@@ -94,16 +94,15 @@ def update_screen(stop):
         destination = data.get('end', 'N/A')
         timetable = data.get("timetable_start", {})
 
-        if stop == destination:
-            continue
-
-        deps = get_departures(timetable, distance_from_start, hour, minute)
-        if deps:
-            text = f"{line} {destination} " + deps
-            deps = wrap(text, width=16)
-            message.extend(deps[:2])
-        else:
-            message = ["No departures"]
+        if stop != destination:
+            deps = get_departures(timetable, distance_from_start, hour, minute)
+            
+            if deps:
+                text = f"{line} {destination} " + deps
+                deps = wrap(text, width=16)
+                message.extend(deps[:2])
+            else:
+                message = ["No departures"]
 
     # Ensure that we are sending exactly 8 lines, which fills the entirety of the OLED
     message = (message + [""] * 8)[:8]
