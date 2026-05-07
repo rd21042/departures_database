@@ -35,6 +35,6 @@ while True:
             oled.show()
             buffer = []
 
-            print(joystick_x_value.read_u16())
+        print(joystick_x_value.read_u16())
 
     sleep(0.02) # 20 ms delay to prevent overloading Pico

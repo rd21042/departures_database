@@ -1,0 +1,18 @@
+0 34 Innovitaskolan
+9 24 Lillhagens sandlycka 5
+10 23 Lillhagens sandlycka 9
+10 22 Lillhagens sandlycka 13
+13 19 Hökällans väg
+17 16 Lillhagsvinkeln
+19 14 Skogome äldreboende
+20 13 Lillhagsparken södra
+21 11 Lillhagsparken norra
+24 9 Sandbanksvägen södra
+25 8 Sandbanksvägen 90
+26 7 Sandbanksvägen norra
+27 6 Sandrevelsvägen 117
+28 5 Sandlidsvägen södra
+29 4 Sandlidsvägen norra
+31 3 Skogomeskolan
+0 1 Sandjordsvägen
+33 0 Sandkullsvägen

@@ -2,6 +2,7 @@ from pathlib import Path
 from textwrap import wrap
 import json
 import serial
+from math import ceil
 from time import sleep
 from datetime import datetime
 
@@ -40,7 +41,8 @@ def get_stop() -> str:
         else:
             print("Not a valid stop")
 
-# Returns departures given a timetable, the stops distance from endpoint and the current time
+# Returns departures for a stop given:
+# a timetable, the stops distance from endpoint and the current time
 def get_departures(
         timetable: dict,
         distance_from_endpoint: int, 
@@ -77,16 +79,15 @@ def get_departures(
     else:
         return ""
 
-# Given a stop, sends up-to-date departures to Pico to refresh OLED screen
-def update_screen(stop: str):
+# Given a stop, returns the text to write to OLED
+def generate_text_to_write(stop: str) -> list:
     now = datetime.now()
     hour = now.hour
     minute = now.minute
 
-    message = wrap(f"{stop.capitalize()} {hour}:{minute:02}", width=16)
+    deps_text = wrap(f"{stop.capitalize()} {hour}:{minute:02}", width=16)
     lines = [1, 20, 21, 3, 4, 12]
 
-    # Check for departures across all lines
     for line in lines:
         data = import_timetable(line)
         if not data:
@@ -95,62 +96,112 @@ def update_screen(stop: str):
         stop_names = data.get("stop_offsets", {})
         stop_offsets = stop_names.get(stop, [])
 
-        if stop_offsets:
-            try:
-                distance_from_start = int(stop_offsets[0])
-            except ValueError:
-                continue
-        else:
-            continue
-
-        destination = data.get('end', 'N/A')
-        timetable = data.get("timetable_start", {})
-
-        if stop != destination:
-            deps = get_departures(timetable, distance_from_start, hour, minute)
-            
-            if deps:
-                text = f"{line} {destination} " + deps
-                deps = wrap(text, width=16)
-                message.extend(deps[:2])
+        for i in ["start", "end"]:
+            if stop_offsets:
+                try:
+                    if i == "start":
+                        distance_from_dest = int(stop_offsets[0])
+                    elif i == "end":
+                        distance_from_dest = int(stop_offsets[1])
+                except ValueError:
+                    continue
             else:
-                message = ["No departures"]
+                continue
 
-    msg_length = len(message)
+            destination = data.get(i, "N/A")
+            timetable = data.get(f"timetable_{i}", {})
 
-    if msg_length <= 8:
-        message = (message + [""] * 8)[:8]
+            if stop != destination:
+                deps = get_departures(timetable, distance_from_dest, hour, minute)
+                
+                if deps:
+                    text = f"{line} {destination} " + deps
+                    deps = wrap(text, width=16)
+                    deps_text.extend(deps[:2])
+
+    rows_per_page = 8
+    items_per_page = 7 # For several pages where "Sida x av x" takes up one row
+
+    if deps_text:
+        msg_length = len(deps_text)
+        result = []
+
+        if msg_length <= rows_per_page:
+            deps_text = (deps_text + [""] * (rows_per_page - msg_length))
+        else:
+            total_pages = ceil(msg_length / items_per_page)
+
+        for page in range(total_pages):
+            start = page * items_per_page
+            end = start + items_per_page
+
+            page_items = deps_text[start:end]          
+            page_items += [""] * (items_per_page - len(page_items))
+            page_items.append(f"Sida {page + 1} av {total_pages}")
+            result.extend(page_items)
+
+        deps_text = result
     else:
-        for i, index in enumerate(range(8, msg_length, 8)):
-            message.insert(index - 1, f"Sida {i + 1} av {(msg_length // 8) + 1}")
+        deps_text = wrap(f"No departures for {stop} within the next 100 minutes", width=16)
+        deps_text = (deps_text + [""] * (rows_per_page - len(deps_text)))
     
-    try:
-        with serial.Serial(port, baudrate, timeout=1) as ser:
-            sleep(1)
-
-            for line in message[:8]:
-                ser.write((line + "\n").encode("utf-8"))
-                sleep(0.05)
-        
-            data = ser.readline().decode("utf-8").strip()
-        
-        print(data)
-
-    except Exception as e:
-        print("Serial error: ", e)
+    return deps_text
 
 def main():
     # Setup
     stop = get_stop()
-    update_screen(stop)
+    page_number = 0
+    lines_per_page = 8
+    update_overwrite = False
+    last_sent_minute = None
 
     # Loop
     try:
-        while True:
-            sleep(60 - datetime.now().second)
-            update_screen(stop)
+        with serial.Serial(port, baudrate, timeout=1) as ser:
+            sleep(1)
+
+            while True:
+                current_minute = datetime.now().minute
+
+                if current_minute != last_sent_minute or update_overwrite:
+                    update_overwrite = False
+                    text_to_write = generate_text_to_write(stop)
+                    pages = ceil(len(text_to_write) / lines_per_page)
+
+                    start_index = page_number * lines_per_page
+                    end_index = start_index + lines_per_page
+
+                    #for line in text_to_write[start_index:end_index]:
+                        #ser.write((line + "\n").encode("utf-8"))
+                        #sleep(0.05)
+
+                    last_sent_minute = current_minute
+
+                x_value = ser.readline().decode("utf-8").strip()
+
+                # x_value is a 16-bit int, and therefore lies between 0 and 65 536
+                # The center is excatly on the middle of the x-axis which means x_value is 32 768 at center
+                try:
+                    x_value = int(x_value)
+                    print(x_value)
+
+                    if x_value > 40_000 and page_number < pages - 1:
+                        page_number += 1
+                        update_overwrite = True
+
+                    elif x_value < 25_000 and page_number > 1:
+                        page_number -= 1
+                        update_overwrite = True
+                        
+                except ValueError:
+                    pass
+
+                sleep(1)
 
     except KeyboardInterrupt:
         print("Successfully stopped updating")
+
+    except Exception as e:
+        print("Serial error: ", e)
 
 main()
